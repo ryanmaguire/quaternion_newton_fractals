@@ -107,6 +107,10 @@ int main(void)
         angle += angle_step;
     }
 
-    std::system("ffmpeg -i fractal_%03d.ppm fractal.gif");
+#ifdef WEBP
+    std::system("ffmpeg -i fractal_%03d.ppm -loop 0 -lossless 1 fractal.webp");
+#else
+    std::system("ffmpeg -i fractal_%03d.ppm -plays 0 fractal.apng");
+#endif
     std::system("rm -f *.ppm");
 }
