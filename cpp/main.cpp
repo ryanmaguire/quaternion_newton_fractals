@@ -41,9 +41,18 @@ static inline qnf::quaternion newton(const qnf::quaternion &q)
     return num / den;
 }
 
+#ifdef WEBP
+#define ANIMATION_COMMAND \
+"ffmpeg -framerate 23 -i fractal_%03d.ppm -loop 0 -lossless 1 fractal.webp"
+#else
+#define ANIMATION_COMMAND "ffmpeg -i fractal_%03d.ppm -plays 0 fractal.apng"
+#endif
+
+#define CLEANUP_COMMAND "rm -f *.ppm"
+
 int main(void)
 {
-    const unsigned int n_frames = 100U;
+    const unsigned int n_frames = 64U;
     char name[20];
     unsigned int frame;
     const double angle_step = TWO_PI / static_cast<double>(n_frames);
@@ -107,10 +116,6 @@ int main(void)
         angle += angle_step;
     }
 
-#ifdef WEBP
-    std::system("ffmpeg -i fractal_%03d.ppm -loop 0 -lossless 1 fractal.webp");
-#else
-    std::system("ffmpeg -i fractal_%03d.ppm -plays 0 fractal.apng");
-#endif
-    std::system("rm -f *.ppm");
+    std::system(ANIMATION_COMMAND);
+    std::system(CLEANUP_COMMAND);
 }
