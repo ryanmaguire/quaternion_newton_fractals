@@ -45,7 +45,8 @@ static inline qnf::quaternion newton(const qnf::quaternion &q)
 #define ANIMATION_COMMAND \
 "ffmpeg -framerate 23 -i fractal_%03d.ppm -loop 0 -lossless 1 fractal.webp"
 #else
-#define ANIMATION_COMMAND "ffmpeg -i fractal_%03d.ppm -plays 0 fractal.apng"
+#define ANIMATION_COMMAND \
+"ffmpeg -framerate 23 -i fractal_%03d.ppm -plays 0 fractal.apng"
 #endif
 
 #define CLEANUP_COMMAND "rm -f *.ppm"
