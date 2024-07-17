@@ -43,8 +43,8 @@ namespace qnf {
         static const unsigned int ysize = 1024U;
 
         /*  Factor used for converting from pixels to points in space.        */
-        static const double pxfact = 5.8651026392961877E-03;
-        static const double pyfact = 5.8651026392961877E-03;
+        static const double pxfact = (end - start) / static_cast<double>(xsize);
+        static const double pyfact = (end - start) / static_cast<double>(ysize);
 
         /*  Maximum number of iterations allowed in Newton's method.          */
         static const unsigned int max_iters = 32U;
